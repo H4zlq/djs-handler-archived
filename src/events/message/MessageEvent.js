@@ -1,6 +1,5 @@
 const { Client, Message } = require('discord.js');
 const BaseEvent = require('../../utils/structures/BaseEvent');
-const Model = require('../../database/mongo/schemas/blacklist-schema');
 
 const getRegex = (regex) => new RegExp(regex);
 
@@ -19,7 +18,7 @@ module.exports = class MessageEvent extends BaseEvent {
     const regex = getRegex(`<@!?${client.user.id}>`);
 
     if (message.author.bot) return;
-    if (message.content.match(regex)) message.channel.send({ content: 'Hello, I am a bot tester developed by nхιм.' })
+    if (message.content.match(regex)) message.channel.send({ content: 'Hello, I am a bot tester.' })
     if (message.content.startsWith(client.prefix)) {
       const [cmdName, ...cmdArgs] = message.content
         .slice(client.prefix.length)

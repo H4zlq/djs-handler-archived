@@ -1,6 +1,5 @@
 const { Client, Interaction, MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 const BaseEvent = require('../../utils/structures/BaseEvent');
-const Model = require('../../database/mongo/schemas/blacklist-schema');
 
 module.exports = class InteractionEvent extends BaseEvent {
     constructor() {
