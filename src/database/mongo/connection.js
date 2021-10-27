@@ -6,7 +6,6 @@ if (!process.env.MONGODB_URI) throw Error('Please put your mongoose string in th
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
 }).then(() => {
     console.log('Connected to Mongo Database ✅');
 }).catch((err) => {
