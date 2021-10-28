@@ -28,7 +28,7 @@ module.exports = class MessageEvent extends BaseEvent {
       const aliases = client.commands.find(c => c.aliases?.includes(cmdName));
       const command = client.commands.get(cmdName || aliases);
 
-      if (!message.member.permissions?.has(command.permissions)) return message.channel.send('You dont have a permissions to execute this command!');
+      if (!message.member.permissions?.has(command?.permissions)) return message.channel.send('You dont have a permissions to execute this command!');
 
       if (command) command.run(client, message, cmdArgs);
     }
