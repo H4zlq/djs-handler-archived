@@ -4,7 +4,6 @@ const BaseCommand = require('./structures/BaseCommand');
 const SlashCommand = require('./structures/SlashCommand');
 const BaseEvent = require('./structures/BaseEvent');
 const arrayOfSlashCommands = [];
-const slashPermissions = [];
 
 const registerCommands = async (client, dir = '') => {
   const filePath = path.join(__dirname, dir);
@@ -36,6 +35,7 @@ const registerSlashCommands = async (client, dir = '') => {
       if (Command.prototype instanceof SlashCommand) {
         const cmd = new Command();
         client.slashCommands.set(cmd.name, cmd);
+        if (cmd.userPermissions) cmd.defaultPermission = false;
         arrayOfSlashCommands.push(cmd);
       }
     }
