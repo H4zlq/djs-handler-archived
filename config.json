@@ -1,4 +1,5 @@
 {
   "token": "put your token here",
-  "prefix": "put your own prefix here"
+  "prefix": "put your own prefix here",
+  "useDatabase": true
 }
