@@ -4,6 +4,7 @@ const BaseCommand = require('./structures/BaseCommand');
 const SlashCommand = require('./structures/SlashCommand');
 const BaseEvent = require('./structures/BaseEvent');
 const arrayOfSlashCommands = [];
+const arrayOfContextMenus = [];
 
 const registerCommands = async (client, dir = '') => {
   const filePath = path.join(__dirname, dir);
@@ -42,6 +43,23 @@ const registerSlashCommands = async (client, dir = '') => {
   }
 }
 
+const registerContextMenus = async (client, dir = '') => {
+  const filePath = path.join(__dirname, dir);
+  const files = await fs.readdir(filePath);
+  for (const file of files) {
+    const stat = await fs.lstat(path.join(filePath, file));
+    if (stat.isDirectory()) registerContextMenus(client, path.join(dir, file));
+    if (file.endsWith('.js')) {
+      const Command = require(path.join(filePath, file));
+      if (Command.prototype instanceof ContextMenu) {
+        const cmd = new Command();
+        client.contextMenus.set(cmd.name, cmd);
+        arrayOfContextMenus.push(cmd);
+      }
+    }
+  }
+}
+
 const registerEvents = async (client, dir = '') => {
   const filePath = path.join(__dirname, dir);
   const files = await fs.readdir(filePath);
@@ -62,6 +80,8 @@ const registerEvents = async (client, dir = '') => {
 module.exports = {
   registerCommands,
   registerSlashCommands,
+  registerContextMenus,
   registerEvents,
-  arrayOfSlashCommands
+  arrayOfSlashCommands,
+  arrayOfContextMenus
 };
