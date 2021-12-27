@@ -1,7 +1,7 @@
 const { Client } = require('discord.js');
 const BaseEvent = require('../../utils/structures/BaseEvent');
-const { arrayOfSlashCommands } = require('../../utils/registry');
-
+const { arrayOfSlashCommands, arrayOfContextMenus } = require('../../utils/registry');
+const arrayOfInteraction = arrayOfSlashCommands.concat(arrayOfContextMenus);
 module.exports = class ReadyEvent extends BaseEvent {
   constructor() {
     super({ name: 'ready' });
@@ -15,7 +15,7 @@ module.exports = class ReadyEvent extends BaseEvent {
     try {
       // Register for a single guild
       const guild = client.guilds.cache.get('put your own guild id here');
-      await guild.commands.set(arrayOfSlashCommands).then((command) => {
+      await guild.commands.set(arrayOfInteraction).then((command) => {
         const getRoles = (commandName) => {
           const permissions = arrayOfSlashCommands.find(x => x.name === commandName).userPermissions;
 
