@@ -9,9 +9,8 @@ module.exports = class TestCommand extends SlashCommand {
     /**
      * @param {Client} client 
      * @param {CommandInteraction} interaction 
-     * @param {String[]} args 
      */
-    async run(client, interaction, args) {
+    async run(client, interaction) {
 
         interaction.deferReply({}).catch({});
 
