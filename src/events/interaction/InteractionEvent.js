@@ -1,4 +1,4 @@
-const { Client, Interaction, MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+const { Client, Interaction } = require('discord.js');
 const BaseEvent = require('../../utils/structures/BaseEvent');
 
 module.exports = class InteractionEvent extends BaseEvent {
@@ -15,9 +15,9 @@ module.exports = class InteractionEvent extends BaseEvent {
         // Slash Command Handling
         if (interaction.isCommand()) {
 
-            const cmd = client.slashCommands.get(interaction.commandName);
+            const command = client.slashCommands.get(interaction.commandName);
 
-            if (!cmd)
+            if (!command)
                 return interaction.followUp({ content: "An error has occured " });
 
             const args = [];
@@ -31,7 +31,13 @@ module.exports = class InteractionEvent extends BaseEvent {
                 } else if (option.value) args.push(option.value);
             }
 
-            cmd.run(client, interaction, args);
+            command.run(client, interaction);
+        }
+
+        // Context Menu Handling
+        if (interaction.isContextMenu()) {
+            const command = client.contextMenus.get(interaction.commandName);
+            if (command) command.run(client, interaction);
         }
     }
 }
