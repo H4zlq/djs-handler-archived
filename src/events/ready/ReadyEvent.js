@@ -17,7 +17,7 @@ module.exports = class ReadyEvent extends BaseEvent {
       const guild = client.guilds.cache.get('put your own guild id here');
       await guild.commands.set(arrayOfInteraction).then((command) => {
         const getRoles = (commandName) => {
-          const permissions = arrayOfSlashCommands.find(x => x.name === commandName).userPermissions;
+          const permissions = arrayOfSlashCommands.find(x => x.name === commandName)?.userPermissions;
 
           if (!permissions) return null;
           return guild.roles.cache.filter(x => x.permissions.has(permissions) && !x.managed)
@@ -56,13 +56,6 @@ module.exports = class ReadyEvent extends BaseEvent {
       console.error(err);
       console.log('Unsuccessfully reloaded application (/) commands.');
     }
-
-    client.users.fetch('217655947194007552').then((channel) => {
-      channel.send(`Bot is starting on ${guild.name}`).then(message => {
-        setTimeout(() => message.delete(), 10000)
-      });
-    });
-
 
     console.log('Guild Count :', client.guilds.cache.size);
   }
