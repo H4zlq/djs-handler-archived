@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const BaseCommand = require('./structures/BaseCommand');
 const SlashCommand = require('./structures/SlashCommand');
+const ContextMenu = require('./structures/ContextMenu');
 const BaseEvent = require('./structures/BaseEvent');
 const arrayOfSlashCommands = [];
 const arrayOfContextMenus = [];
