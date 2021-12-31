@@ -36,6 +36,7 @@ module.exports = class InteractionEvent extends BaseEvent {
 
         // Context Menu Handling
         if (interaction.isContextMenu()) {
+            await interaction.deferReply({}).catch(() => { });
             const command = client.contextMenus.get(interaction.commandName);
             if (command) command.run(client, interaction);
         }
